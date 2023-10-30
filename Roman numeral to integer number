@@ -1,0 +1,21 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        valTable = {'I': 1,             #Use of dictionary increases speed and efficiency
+        'V': 5, 'X' : 10,
+        'L' : 50, 'C' : 100,
+        'D' : 500, 'M': 1000}
+        sum = 0 
+        n = len(s)
+        for i in range(n-1): 
+            if valTable.get(s[i]) >= valTable.get(s[i+1]):
+                val = valTable.get(s[i]) 
+            else:
+                val = - valTable.get(s[i])
+            sum = sum + val
+            
+        last_val = valTable.get(s[-1])   '''see in if condition, we are comparing s[i] with s[i+1], and for i = len(s), s[i+1] will not exist
+                                        thus will generate error. So, I skipped addition of last roman term and add at last while returining final value'''
+        return sum + last_val
+
+#example to try out!
+Solution().romanToInt('MCMXCIV') 
